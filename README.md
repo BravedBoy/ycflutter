@@ -112,6 +112,20 @@
 
 
 
+### 其他操作
+- 输入flutter doctor -v  该命令检查您的环境并在终端窗口中显示报告
+- 输入
+
+
+
+### 报错提示
+- 报错如下所示
+    - 重点错误日志：Some Android licenses not accepted.  To resolve this, run: flutter doctor --android-licenses
+    - 解决办法：flutter doctor --android-licenses   多输几次 y即可
+
+
+
+
 ### 09.关于更多
 #### 关于博客汇总链接
 - 1.[技术博客汇总](https://www.jianshu.com/p/614cb839182c)
