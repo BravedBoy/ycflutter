@@ -10,6 +10,7 @@ import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
  *     revise:
  * </pre>
  */
+// ignore: must_be_immutable
 class ArticleDetailPage extends StatefulWidget {
   //标题
   String title;

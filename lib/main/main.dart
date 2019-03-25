@@ -11,11 +11,11 @@ import 'package:ycflutter/main/MainDart.dart';
  * </pre>
  */
 //main函数使用了(=>)符号, 这是Dart中单行函数或方法的简写。
-void main() => runApp(MainDart());
+//void main() => runApp(MainDart());
 
-/*void main(){
+void main(){
   runApp(new MainDart());
-}*/
+}
 
 //下面这个是最简单的案例
 //void main() => runApp(MyApp());
