@@ -63,6 +63,8 @@
 
 
 ### 04.部分截图展示
+![image](https://github.com/yangchong211/ycflutter/blob/master/iamge/16.jpg)
+![image](https://github.com/yangchong211/ycflutter/blob/master/iamge/17.jpg)
 ![image](https://github.com/yangchong211/ycflutter/blob/master/iamge/1.jpg)
 ![image](https://github.com/yangchong211/ycflutter/blob/master/iamge/2.jpg)
 ![image](https://github.com/yangchong211/ycflutter/blob/master/iamge/3.jpg)
@@ -114,7 +116,6 @@
 
 ### 其他操作
 - 输入flutter doctor -v  该命令检查您的环境并在终端窗口中显示报告
-- 输入
 
 
 
@@ -122,7 +123,6 @@
 - 报错如下所示
     - 重点错误日志：Some Android licenses not accepted.  To resolve this, run: flutter doctor --android-licenses
     - 解决办法：flutter doctor --android-licenses   多输几次 y即可
-
 
 
 
@@ -143,6 +143,8 @@
 
 #### 关于LICENSE
 ```
+Copyright 2017 yangchong211（github.com/yangchong211）
+
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
