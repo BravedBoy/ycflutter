@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:ycflutter/pages/find/FindPage.dart';
 import 'package:ycflutter/pages/home/HomePage.dart';
+import 'package:ycflutter/pages/me/AboutMePage.dart';
 import 'package:ycflutter/pages/me/MePage.dart';
+import 'package:ycflutter/pages/me/SettingPage.dart';
 import 'package:ycflutter/pages/search/SearchPage.dart';
 import 'package:ycflutter/pages/todo/TodoPage.dart';
 import 'package:ycflutter/res/YcColors.dart';
+import 'package:ycflutter/utils/LogUtils.dart';
+import 'package:ycflutter/weight/SmartDrawer.dart';
 
 
 class MainDart extends  StatefulWidget{
@@ -16,7 +20,9 @@ class MainDart extends  StatefulWidget{
 }
 
 class MainDartState extends State<MainDart> with TickerProviderStateMixin {
+  dynamic d = 1;
 
+  //变量
   //默认索引
   int positionIndex = 0;
   //底部导航栏
@@ -57,21 +63,30 @@ class MainDartState extends State<MainDart> with TickerProviderStateMixin {
                   }));
                 }),
             new IconButton(
-                icon: new Icon(Icons.add_a_photo),
-                onPressed: () {
-                  navigatorKey.currentState.push(new MaterialPageRoute(builder: (context) {
-                    return null;
-                  }));
-                }),
-            new IconButton(
                 icon: new Icon(Icons.search),
                 onPressed: () {
                   navigatorKey.currentState.push(new MaterialPageRoute(builder: (context) {
                     return new SearchPage(null);
                   }));
                 }),
+            new IconButton(
+                icon: new Icon(Icons.settings),
+                onPressed: () {
+                  LogUtils.showPrint("点击设置按钮，跳转设置中心");
+                  //不要用下面这个，这个点击事件会报错
+                  //报错日志：Another exception was thrown: Navigator operation requested with a context that does not include a Navigator.
+                  //后期在研究原理
+                  /*Navigator.of(context).push(new MaterialPageRoute(builder: (context){
+                      return new SettingPage();
+                    }));*/
+                  navigatorKey.currentState.push(new MaterialPageRoute(builder: (context) {
+                    return new SettingPage();
+                  }));
+                }),
           ],
         ),
+
+        drawer: initDrawer(),//New
         body: indexStack,
 
         //相当于底部导航栏
@@ -125,5 +140,93 @@ class MainDartState extends State<MainDart> with TickerProviderStateMixin {
       index: positionIndex,
     );
   }
+
+
+  //初始化侧滑菜单控件
+  SmartDrawer initDrawer() {
+    return new SmartDrawer(
+      widthPercent: 0.7,
+      elevation: 12,
+      child: new ListView(
+        padding: EdgeInsets.zero,
+        children: <Widget>[
+          new UserAccountsDrawerHeader(
+            accountName: Text("小杨逗比"),
+            accountEmail: Text("yangchong211@163.com"),
+            onDetailsPressed: (){
+              navigatorKey.currentState.push(new MaterialPageRoute(builder: (context) {
+                return new AboutMePage();
+              }));
+            },
+            currentAccountPicture: new GestureDetector(
+              child: new CircleAvatar(
+                backgroundImage: new ExactAssetImage("lib/image/ic_person.jpg"),
+              ),
+              onTap: (){
+                navigatorKey.currentState.push(new MaterialPageRoute(builder: (context) {
+                  return new AboutMePage();
+                }));
+              },
+            ),
+          ),
+          new ListTile(
+              title: new Text("我的收藏"),
+              trailing: new Icon(Icons.email),
+              onTap: (){
+
+              }
+          ),
+          new Divider(),
+          new ListTile(
+              title: new Text("消息中心"),
+              trailing: new Icon(Icons.verified_user),
+              onTap: (){
+              }
+          ),
+          new Divider(),
+          new ListTile(
+              title: new Text("提交项目"),
+              trailing: new Icon(Icons.present_to_all),
+              onTap: (){
+              }
+          ),
+          new Divider(),
+          new ListTile(
+              title: new Text("分组管理"),
+              trailing: new Icon(Icons.group_work),
+              onTap: (){
+              }
+          ),
+          new Divider(),
+          new ListTile(
+            title: new Text("关于项目"),
+            trailing: new Icon(Icons.apps),
+            onTap: (){
+              navigatorKey.currentState.push(new MaterialPageRoute(builder: (context){
+                return new AboutMePage();
+              }));
+            },
+          ),
+          new Divider(),
+          new ListTile(
+              title: new Text("设置中心"),
+              trailing: new Icon(Icons.settings),
+              onTap: (){
+                LogUtils.showPrint("设置中心");
+                /*Navigator.of(context).push(new MaterialPageRoute(builder: (context){
+                  return new SettingPage();
+                }));*/
+                //关闭侧滑菜单
+                navigatorKey.currentState.push(new MaterialPageRoute(builder: (context) {
+                  return new SettingPage();
+                }));
+              }
+          ),
+          new Divider(),
+        ],
+      ),
+    );
+  }
+
 
 }
