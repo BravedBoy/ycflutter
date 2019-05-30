@@ -1,5 +1,7 @@
 
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:ycflutter/api/AndroidApi.dart';
 import 'package:ycflutter/api/HttpUtils.dart';
@@ -31,8 +33,11 @@ class HomeState extends State<HomePage> {
 
   List listData = new List();
   var bannerData;
+  //加载的页数
   var curPage = 0;
   var listTotalSize = 0;
+  //是否正在加载数据
+  bool isLoading = false;
 
   ScrollController scrollController = new ScrollController();
   TextStyle titleTextStyle = new TextStyle(fontSize: 15.0);
@@ -71,7 +76,7 @@ class HomeState extends State<HomePage> {
   void initState() {
     super.initState();
     getBanner();
-    getHomeList();
+    getMoreList();
   }
 
   @override
@@ -86,7 +91,7 @@ class HomeState extends State<HomePage> {
       var maxScroll = scrollController.position.maxScrollExtent;
       var pixels = scrollController.position.pixels;
       if (maxScroll == pixels && listData.length < listTotalSize) {
-        getHomeList();
+        getMoreList();
       }
     });
   }
@@ -95,7 +100,7 @@ class HomeState extends State<HomePage> {
   Future<Null> pullToRefresh() async {
     curPage = 0;
     getBanner();
-    getHomeList();
+    getMoreList();
     return null;
   }
 
@@ -114,9 +119,24 @@ class HomeState extends State<HomePage> {
     });
   }
 
+  Future getMoreList() async {
+    if (!isLoading) {
+      setState(() {
+        isLoading = true;
+      });
+      await Future.delayed(Duration(seconds: 2), () {
+        print('加载更多');
+        setState(() {
+          getHomeList();
+          isLoading = false;
+        });
+      });
+    }
+  }
 
   //获取主页数据
   void getHomeList() {
+    isLoading = false;
     String url = AndroidApi.ARTICLE_LIST;
     url += "$curPage/json";
     HttpUtils.get(url, (data) {
@@ -142,19 +162,47 @@ class HomeState extends State<HomePage> {
   }
 
 
-  Widget buildItem(int i) {
-    //添加header头部
-    if (i == 0) {
-      return addHeader(i);
+  Widget buildItem(int index) {
+    if (index < listData.length) {
+      //添加header头部
+      if (index == 0) {
+        return addHeader(index);
+      }
+      index -= 1;
+      var itemData = listData[index];
+      //添加没有更多
+      if (itemData is String && itemData == Constants.complete) {
+        return new EndLine();
+      }
+      //添加博文item
+      return new ArticleItem(itemData);
     }
-    i -= 1;
-    var itemData = listData[i];
-    //添加没有更多
-    if (itemData is String && itemData == Constants.complete) {
-      return new EndLine();
-    }
-    //添加博文item
-    return new ArticleItem(itemData);
+    return getMoreWidget();
+  }
+
+
+  Widget getMoreWidget() {
+    return Center(
+      child: Padding(
+        padding: EdgeInsets.all(10.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            new Text('加载中...',
+              style: TextStyle(
+                  fontSize: 14.0,
+                  color: YcColors.colorPrimary,
+              ),
+            ),
+            new CircularProgressIndicator(
+              strokeWidth: 1.0,
+              //backgroundColor: YcColors.colorPrimary,
+            )
+          ],
+        ),
+      ),
+    );
   }
 
   //添加头部轮播图，
