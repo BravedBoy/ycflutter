@@ -22,7 +22,6 @@ class MainDart extends  StatefulWidget{
 class MainDartState extends State<MainDart> with TickerProviderStateMixin {
 
   dynamic d = 1;
-
   //变量
   //默认索引
   int positionIndex = 0;
@@ -58,7 +57,7 @@ class MainDartState extends State<MainDart> with TickerProviderStateMixin {
     );
   }
 
-  //这个方法
+
   @override
   void initState() {
     super.initState();
@@ -87,7 +86,7 @@ class MainDartState extends State<MainDart> with TickerProviderStateMixin {
   }
 
 
-  //初始化数据
+  ///初始化数据
   void initData() {
     indexStack = new IndexedStack(
       children: <Widget>[new HomePage(), new FindPage(),new TodoPage(), new MePage()],
