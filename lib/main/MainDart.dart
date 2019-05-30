@@ -20,6 +20,7 @@ class MainDart extends  StatefulWidget{
 }
 
 class MainDartState extends State<MainDart> with TickerProviderStateMixin {
+
   dynamic d = 1;
 
   //变量
@@ -46,60 +47,13 @@ class MainDartState extends State<MainDart> with TickerProviderStateMixin {
       //设置home
       home: new Scaffold(
         //设置appBar
-        appBar: new AppBar(
-          //title
-          title: new Text(
-            mainTitles[positionIndex],
-            style: new TextStyle(color: Colors.white , fontSize: 18 , fontWeight: FontWeight.bold),
-          ),
-
-          //这个相当于actionBar上的menu
-          actions: <Widget>[
-            new IconButton(
-                icon: new Icon(Icons.account_balance),
-                onPressed: () {
-                  navigatorKey.currentState.push(new MaterialPageRoute(builder: (context) {
-                    return null;
-                  }));
-                }),
-            new IconButton(
-                icon: new Icon(Icons.search),
-                onPressed: () {
-                  navigatorKey.currentState.push(new MaterialPageRoute(builder: (context) {
-                    return new SearchPage(null);
-                  }));
-                }),
-            new IconButton(
-                icon: new Icon(Icons.settings),
-                onPressed: () {
-                  LogUtils.showPrint("点击设置按钮，跳转设置中心");
-                  //不要用下面这个，这个点击事件会报错
-                  //报错日志：Another exception was thrown: Navigator operation requested with a context that does not include a Navigator.
-                  //后期在研究原理
-                  /*Navigator.of(context).push(new MaterialPageRoute(builder: (context){
-                      return new SettingPage();
-                    }));*/
-                  navigatorKey.currentState.push(new MaterialPageRoute(builder: (context) {
-                    return new SettingPage();
-                  }));
-                }),
-          ],
-        ),
-
+        appBar: initAppBar(),
+        //初始化侧滑菜单
         drawer: initDrawer(),//New
+        //body主题内容
         body: indexStack,
-
         //相当于底部导航栏
-        bottomNavigationBar: new BottomNavigationBar(
-          items: navigationViews.map((BottomNavigationBarItem navigationView) => navigationView).toList(),
-          currentIndex: positionIndex,
-          type: BottomNavigationBarType.fixed,
-          onTap: (index) {
-            setState(() {
-              positionIndex = index;
-            });
-          },
-        ),
+        bottomNavigationBar: initNavigationBar(),
       ),
     );
   }
@@ -141,8 +95,50 @@ class MainDartState extends State<MainDart> with TickerProviderStateMixin {
     );
   }
 
+  ///设置appBar
+  AppBar initAppBar(){
+    return new AppBar(
+      //title
+      title: new Text(
+        mainTitles[positionIndex],
+        style: new TextStyle(color: Colors.white , fontSize: 18 , fontWeight: FontWeight.bold),
+      ),
 
-  //初始化侧滑菜单控件
+      //这个相当于actionBar上的menu
+      actions: <Widget>[
+        new IconButton(
+            icon: new Icon(Icons.account_balance),
+            onPressed: () {
+              navigatorKey.currentState.push(new MaterialPageRoute(builder: (context) {
+                return null;
+              }));
+            }),
+        new IconButton(
+            icon: new Icon(Icons.search),
+            onPressed: () {
+              navigatorKey.currentState.push(new MaterialPageRoute(builder: (context) {
+                return new SearchPage(null);
+              }));
+            }),
+        new IconButton(
+            icon: new Icon(Icons.settings),
+            onPressed: () {
+              LogUtils.showPrint("点击设置按钮，跳转设置中心");
+              //不要用下面这个，这个点击事件会报错
+              //报错日志：Another exception was thrown: Navigator operation requested with a context that does not include a Navigator.
+              //后期在研究原理
+              /*Navigator.of(context).push(new MaterialPageRoute(builder: (context){
+                      return new SettingPage();
+                    }));*/
+              navigatorKey.currentState.push(new MaterialPageRoute(builder: (context) {
+                return new SettingPage();
+              }));
+            }),
+      ],
+    );
+  }
+
+  ///初始化侧滑菜单控件
   SmartDrawer initDrawer() {
     return new SmartDrawer(
       widthPercent: 0.7,
@@ -228,5 +224,18 @@ class MainDartState extends State<MainDart> with TickerProviderStateMixin {
     );
   }
 
+  ///相当于底部导航栏
+  BottomNavigationBar initNavigationBar(){
+    return new BottomNavigationBar(
+      items: navigationViews.map((BottomNavigationBarItem navigationView) => navigationView).toList(),
+      currentIndex: positionIndex,
+      type: BottomNavigationBarType.fixed,
+      onTap: (index) {
+        setState(() {
+          positionIndex = index;
+        });
+      },
+    );
+  }
 
 }
