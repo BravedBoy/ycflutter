@@ -52,34 +52,42 @@ class HotPageState extends State<HotFriendPage> {
 
   @override
   Widget build(BuildContext context) {
-    return new ListView(
-      children: <Widget>[
-        new Padding(
-            padding: EdgeInsets.all(10.0),
-            child: new Text('大家都在搜',
-                style: new TextStyle(color: YcColors.colorPrimary, fontSize: 16.0))),
-        Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: new Wrap(
-            spacing: 5.0,
-            runSpacing: 5.0,
-            children: hotWidgets,
+    if((hotWidgets == null || hotWidgets.length == 0) &&
+        (friendWidgets == null || friendWidgets.length == 0)){
+      //展示progress
+      return new Center(
+        child: new CircularProgressIndicator(),
+      );
+    }else{
+      return new ListView(
+        children: <Widget>[
+          new Padding(
+              padding: EdgeInsets.all(10.0),
+              child: new Text('大家都在搜',
+                  style: new TextStyle(color: YcColors.colorPrimary, fontSize: 16.0))),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: new Wrap(
+              spacing: 5.0,
+              runSpacing: 5.0,
+              children: hotWidgets,
+            ),
           ),
-        ),
-        new Padding(
-            padding: EdgeInsets.all(10.0),
-            child: new Text('常用网站',
-                style: new TextStyle(color: YcColors.colorPrimary, fontSize: 16.0))),
-        Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: new Wrap(
-            spacing: 5.0,
-            runSpacing: 5.0,
-            children: friendWidgets,
+          new Padding(
+              padding: EdgeInsets.all(10.0),
+              child: new Text('常用网站',
+                  style: new TextStyle(color: YcColors.colorPrimary, fontSize: 16.0))),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: new Wrap(
+              spacing: 5.0,
+              runSpacing: 5.0,
+              children: friendWidgets,
+            ),
           ),
-        ),
-      ],
-    );
+        ],
+      );
+    }
   }
 
   //获取常用网站
