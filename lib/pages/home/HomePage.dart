@@ -56,12 +56,17 @@ class HomeState extends State<HomePage> {
         child: new CircularProgressIndicator(),
       );
     }else{
-      Widget listView = new ListView.builder(
-        itemCount: listData.length + 1,
-        itemBuilder: (context, i) => buildItem(i),
-        controller: scrollController,
+      return new Scaffold(
+        body: getBody(),
+        floatingActionButton: FloatingActionButton(
+          onPressed: (){
+            scrollToTopPage();
+          },
+          tooltip: 'Increment',
+          child: Icon(Icons.vertical_align_top),
+          mini:true,
+        ), // This t
       );
-      return new RefreshIndicator(child: listView, onRefresh: pullToRefresh);
     }
   }
 
@@ -81,9 +86,26 @@ class HomeState extends State<HomePage> {
 
   @override
   void dispose() {
+    //防止内存泄漏
     scrollController.dispose();
     super.dispose();
   }
+
+
+  Widget getBody(){
+    Widget listView = new ListView.builder(
+      itemCount: listData.length + 1,
+      //兰等表达式
+      //itemBuilder: (context, i) => buildItem(i),
+      itemBuilder: (BuildContext context, int index){
+        return buildItem(index);
+      },
+      controller: scrollController,
+    );
+    Widget body = new RefreshIndicator(child: listView, onRefresh: pullToRefresh);
+    return body;
+  }
+
 
   void addListener() {
     //添加滚动监听事件
@@ -96,7 +118,17 @@ class HomeState extends State<HomePage> {
     });
   }
 
-  //刷新控件
+  ///滚动到顶部
+  void scrollToTopPage() {
+    //返回到顶部时执行动画
+    scrollController.animateTo(.0,
+        duration: Duration(milliseconds: 200),
+        curve: Curves.ease
+    );
+  }
+
+
+  ///刷新控件
   Future<Null> pullToRefresh() async {
     await Future.delayed(Duration(seconds: 2), () {
       print('refresh');
@@ -108,7 +140,7 @@ class HomeState extends State<HomePage> {
     });
   }
 
-  //获取轮播图
+  ///获取轮播图
   void getBanner() {
     String bannerUrl = AndroidApi.BANNER;
     //请求接口
@@ -122,6 +154,9 @@ class HomeState extends State<HomePage> {
     });
   }
 
+  ///获取更多数据
+  ///逗比，看到这里，记得给项目点个star，谢谢。
+  ///GitHub：https://github.com/yangchong211/ycflutter
   Future getMoreList() async {
     if (!isLoading) {
       setState(() {
@@ -137,7 +172,7 @@ class HomeState extends State<HomePage> {
     }
   }
 
-  //获取主页数据
+  ///获取主页数据
   void getHomeList() {
     isLoading = false;
     String url = AndroidApi.ARTICLE_LIST;
@@ -183,7 +218,7 @@ class HomeState extends State<HomePage> {
     return getMoreWidget();
   }
 
-
+  ///加载更多
   Widget getMoreWidget() {
     return Center(
       child: Padding(
@@ -208,7 +243,7 @@ class HomeState extends State<HomePage> {
     );
   }
 
-  //添加头部轮播图，
+  ///添加头部轮播图，
   Widget addHeader(int i) {
     var container = new Container(height: 180.0, child: bannerView,);
     Row content = new Row(
