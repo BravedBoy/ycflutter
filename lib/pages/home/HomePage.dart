@@ -199,7 +199,7 @@ class HomeState extends State<HomePage> {
               ),
             ),
             new CircularProgressIndicator(
-              strokeWidth: 4.0,
+              strokeWidth: 1.0,
               //backgroundColor: YcColors.colorPrimary,
             )
           ],
