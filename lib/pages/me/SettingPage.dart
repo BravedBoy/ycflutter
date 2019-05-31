@@ -80,7 +80,7 @@ class SettingState extends State<SettingPage> {
     var listTile = new ListTile(
       title: new Text('退出登录'),
       onTap: (){
-
+        showAlertDialog(context,'退出登录');
       },
       trailing: new Icon(Icons.arrow_forward, color: YcColors.colorIndigo10),
     );
@@ -92,7 +92,7 @@ class SettingState extends State<SettingPage> {
     var listTile = new ListTile(
       title: Text("修改密码"),
       onTap: (){
-
+        showAlertDialog(context,'修改密码');
       },
       trailing: new Icon(Icons.arrow_forward,color: YcColors.colorIndigo10,),
     );
@@ -103,7 +103,7 @@ class SettingState extends State<SettingPage> {
     var listTile = new ListTile(
       title: Text("安全设置"),
       onTap: (){
-
+        showAlertDialog(context,'安全设置');
       },
       trailing: new Icon(Icons.arrow_forward,color: YcColors.colorIndigo10,),
     );
@@ -114,12 +114,65 @@ class SettingState extends State<SettingPage> {
     var listTile = new ListTile(
       title: Text("清除缓存"),
       onTap: (){
-
+        showAlertDialog(context,'清除缓存');
       },
       trailing: new Icon(Icons.arrow_forward,color: YcColors.colorIndigo10,),
     );
     return listTile;
   }
+
+
+  ///展示弹窗
+  void showAlertDialog(BuildContext context , String title) {
+    showDialog<Null>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return new AlertDialog(
+          title: new Text(title),
+          content: new SingleChildScrollView(
+            child: new ListBody(
+              children: <Widget>[
+                new Text('请选择是否需要'+title,style: new TextStyle(
+                    color: YcColors.colorRed,fontSize: 16),),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text('取消'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            new FlatButton(
+              child: new Text('确定'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                switch(title){
+                  case '退出登录':
+
+                    break;
+                  case '修改密码':
+
+                    break;
+                  case '安全设置':
+
+                    break;
+                  case '清除缓存':
+
+                    break;
+                }
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+
+
 }
 
 
