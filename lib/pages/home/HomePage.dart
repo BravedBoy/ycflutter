@@ -98,12 +98,15 @@ class HomeState extends State<HomePage> {
 
   //刷新控件
   Future<Null> pullToRefresh() async {
-    curPage = 0;
-    getBanner();
-    getMoreList();
-    return null;
+    await Future.delayed(Duration(seconds: 2), () {
+      print('refresh');
+      setState(() {
+        curPage = 0;
+        getBanner();
+        getMoreList();
+      });
+    });
   }
-
 
   //获取轮播图
   void getBanner() {
@@ -196,7 +199,7 @@ class HomeState extends State<HomePage> {
               ),
             ),
             new CircularProgressIndicator(
-              strokeWidth: 1.0,
+              strokeWidth: 4.0,
               //backgroundColor: YcColors.colorPrimary,
             )
           ],
