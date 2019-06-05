@@ -23,6 +23,7 @@ import 'package:ycflutter/common/Constants.dart';
 import 'package:ycflutter/pages/detail/ArticleDetailPage.dart';
 import 'package:ycflutter/pages/home/ArticleItem.dart';
 import 'package:ycflutter/res/YcColors.dart';
+import 'package:ycflutter/utils/LogUtils.dart';
 import 'package:ycflutter/weight/BannerView.dart';
 import 'package:ycflutter/weight/EndLine.dart';
 
@@ -53,7 +54,9 @@ class HomeState extends State<HomePage> {
   //是否正在加载数据
   bool isLoading = false;
   ScrollController scrollController = new ScrollController();
-
+  //是否显示“返回到顶部”按钮
+  bool showToTopBtn = false;
+  //轮播图
   BannerView bannerView;
 
   //这个方法必须写
@@ -69,7 +72,7 @@ class HomeState extends State<HomePage> {
     }else{
       return new Scaffold(
         body: getBody(),
-        floatingActionButton: FloatingActionButton(
+        floatingActionButton: !showToTopBtn ? null : FloatingActionButton(
           onPressed: (){
             scrollToTopPage();
           },
@@ -121,10 +124,24 @@ class HomeState extends State<HomePage> {
   void addListener() {
     //添加滚动监听事件
     scrollController.addListener(() {
-      var maxScroll = scrollController.position.maxScrollExtent;
-      var pixels = scrollController.position.pixels;
+      var offset = scrollController.offset;
+      var position = scrollController.position;
+      var positions = scrollController.positions;
+      var length = positions.length;
+      LogUtils.log("scrollController长度"+length.toString());
+      var maxScroll = position.maxScrollExtent;
+      var pixels = position.pixels;
       if (maxScroll == pixels && listData.length < listTotalSize) {
         getMoreList();
+      }
+      if (offset < 300) {
+        setState(() {
+          showToTopBtn = false;
+        });
+      } else if (offset >= 300) {
+        setState(() {
+          showToTopBtn = true;
+        });
       }
     });
   }

@@ -15,6 +15,7 @@ limitations under the License.
 */
 
 import 'package:flutter/material.dart';
+import 'package:ycflutter/common/Constants.dart';
 import 'package:ycflutter/pages/find/FindPage.dart';
 import 'package:ycflutter/pages/home/HomePage.dart';
 import 'package:ycflutter/pages/me/AboutMePage.dart';
@@ -23,6 +24,7 @@ import 'package:ycflutter/pages/me/SettingPage.dart';
 import 'package:ycflutter/pages/search/SearchPage.dart';
 import 'package:ycflutter/pages/todo/TodoPage.dart';
 import 'package:ycflutter/res/YcColors.dart';
+import 'package:ycflutter/utils/EventBus.dart';
 import 'package:ycflutter/utils/LogUtils.dart';
 import 'package:ycflutter/weight/SmartDrawer.dart';
 
@@ -231,6 +233,11 @@ class MainDartState extends State<MainDart> with TickerProviderStateMixin {
                 navigatorKey.currentState.push(new MaterialPageRoute(builder: (context) {
                   return new SettingPage();
                 }));
+                //模拟发送通知
+                EventBus.internal().on(Constants.busSetting,(arg) {
+                  // do something
+                  LogUtils.showPrint("发送消息通知，设置");
+                });
               }
           ),
           new Divider(),

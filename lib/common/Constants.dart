@@ -18,5 +18,6 @@ limitations under the License.
 class Constants {
 
   static final String complete = "COMPLETE";
+  static final String busSetting = "bus_setting";
 
 }
