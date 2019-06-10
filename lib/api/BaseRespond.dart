@@ -37,6 +37,6 @@ class BaseRespond {
 
   int errorCode;
   String errorMsg;
-  String data;
+  var data;
 
 }
