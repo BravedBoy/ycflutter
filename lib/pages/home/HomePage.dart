@@ -126,9 +126,6 @@ class HomeState extends State<HomePage> {
     scrollController.addListener(() {
       var offset = scrollController.offset;
       var position = scrollController.position;
-      var positions = scrollController.positions;
-      var length = positions.length;
-      LogUtils.log("scrollController长度"+length.toString());
       var maxScroll = position.maxScrollExtent;
       var pixels = position.pixels;
       if (maxScroll == pixels && listData.length < listTotalSize) {
