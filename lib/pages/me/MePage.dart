@@ -19,6 +19,7 @@ import 'package:ycflutter/pages/me/AboutMePage.dart';
 import 'package:ycflutter/pages/me/MeCollectPage.dart';
 import 'package:ycflutter/pages/me/LoginPage.dart';
 import 'package:ycflutter/res/YcColors.dart';
+import 'package:ycflutter/utils/AppNavigator.dart';
 import 'package:ycflutter/utils/UserUtils.dart';
 import 'package:ycflutter/weight/ItemLine.dart';
 
@@ -149,9 +150,7 @@ class MeState extends State<MePage> {
         title: const Text('关于更多信息'),
         trailing:  Icon(Icons.arrow_forward, color: YcColors.colorPrimary),
         onTap: () {
-          Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
-            return new AboutMePage();
-          }));
+          AppNavigator.push(context, AboutMePage());
         });
     return layout;
   }
@@ -196,14 +195,11 @@ class MeState extends State<MePage> {
         title: const Text('我的GitHub'),
         trailing:  Icon(Icons.arrow_forward, color: YcColors.colorPrimary),
         onTap: () async {
-          Navigator
-              .of(context)
-              .push(new MaterialPageRoute(builder: (context) {
-            return new ArticleDetailPage(
-              title: '潇湘剑雨',
-              url: 'https://github.com/yangchong211',
-            );
-          }));
+          var articleDetailPage = new ArticleDetailPage(
+            title: '潇湘剑雨',
+            url: 'https://github.com/yangchong211',
+          );
+          AppNavigator.push(context, articleDetailPage);
         });
     return layout;
   }

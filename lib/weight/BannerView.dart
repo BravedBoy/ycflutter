@@ -15,6 +15,7 @@ limitations under the License.
 */
 import 'package:flutter/material.dart';
 import 'package:ycflutter/pages/detail/ArticleDetailPage.dart';
+import 'package:ycflutter/utils/AppNavigator.dart';
 
 
 /*
@@ -104,8 +105,8 @@ class BannerViewState extends State<BannerView> with SingleTickerProviderStateMi
   //轮播图点击事件
   //https://github.com/yangchong211/YCBlogs
   void onBannerClick(itemData) {
-    Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
-      return new ArticleDetailPage(title:itemData['title'],url: itemData['link']);
-    }));
+    var materialPageRoute = new ArticleDetailPage(
+        title:itemData['title'],url: itemData['link']);
+    AppNavigator.push(context, materialPageRoute);
   }
 }
