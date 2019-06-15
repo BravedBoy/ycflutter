@@ -20,6 +20,7 @@ import 'package:ycflutter/dialog/BaseDialog.dart';
 import 'package:ycflutter/res/TextStyles.dart';
 import 'package:ycflutter/res/YcColors.dart';
 import 'package:ycflutter/test/TestPage.dart';
+import 'package:ycflutter/weight/ClickItem.dart';
 
 
 /*
@@ -41,11 +42,6 @@ class SettingPage extends StatefulWidget {
 class SettingState extends State<SettingPage> {
   @override
   Widget build(BuildContext context) {
-    Widget night = initNightWidget();
-    Widget pwd = initPwdWidget();
-    Widget safe = initSafetyWidget();
-    Widget cache = initCacheWidget();
-
     return new Scaffold(
       appBar: new AppBar(
         title: new Text("设置中心"),
@@ -54,92 +50,78 @@ class SettingState extends State<SettingPage> {
         //padding: EdgeInsets.zero,
         padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
         children: <Widget>[
-          night,
-          new Divider(),
-          pwd,
-          new Divider(),
-          safe,
-          new Divider(),
-          cache,
-          new Divider(),
-          new ListTile(
-              title: const Text('测试页面'),
-              trailing:  Icon(Icons.arrow_forward, color: YcColors.colorPrimary),
-              onTap: () {
+          ClickItem(
+              title: "退出登录",
+              icon : new Icon(Icons.arrow_forward, color: YcColors.colorIndigo10),
+              onTap: (){
+                showAlertDialog(context,'退出登录');
+              }
+          ),
+          ClickItem(
+              title: "修改密码",
+              icon : new Icon(Icons.arrow_forward, color: YcColors.colorIndigo10),
+              onTap: (){
+                showAlertDialog(context,'修改密码');
+              }
+          ),
+          ClickItem(
+              title: "安全设置",
+              icon : new Icon(Icons.arrow_forward, color: YcColors.colorIndigo10),
+              onTap: (){
+                showAlertDialog(context,'安全设置');
+              }
+          ),
+          ClickItem(
+              title: "清除缓存",
+              icon : new Icon(Icons.arrow_forward, color: YcColors.colorIndigo10),
+              onTap: (){
+                showDialog(
+                    context: context,
+                    barrierDismissible: false,
+                    builder: (BuildContext context) {
+                      return BaseDialog(
+                        hiddenTitle: true,
+                        height: 120.0,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          child: const Text("请选择是否需要App中所有的清除缓存",
+                              style: TextStyles.textDark16, textAlign: TextAlign.center),
+                        ),
+                        onPressed: (){
+
+                        },
+                      );
+                    }
+                );
+              }
+          ),
+          ClickItem(
+              title: "修改密码",
+              icon : new Icon(Icons.arrow_forward, color: YcColors.colorIndigo10),
+              onTap: (){
+                showAlertDialog(context,'修改密码');
+              }
+          ),
+          ClickItem(
+              title: "修改密码",
+              icon : new Icon(Icons.arrow_forward, color: YcColors.colorIndigo10),
+              onTap: (){
+                showAlertDialog(context,'修改密码');
+              }
+          ),
+          ClickItem(
+              title: "测试页面",
+              icon : new Icon(Icons.arrow_forward, color: YcColors.colorIndigo10),
+              onTap: (){
                 Navigator.of(context).push(new MaterialPageRoute(builder: (context){
                   return new TestPage();
                 }));
               }
           ),
-          new Divider(),
         ],
       ),
     );
   }
-
-
-  Widget initNightWidget() {
-    var listTile = new ListTile(
-      title: new Text('退出登录'),
-      onTap: (){
-        showAlertDialog(context,'退出登录');
-      },
-      trailing: new Icon(Icons.arrow_forward, color: YcColors.colorIndigo10),
-    );
-    return listTile;
-  }
-
-
-  Widget initPwdWidget() {
-    var listTile = new ListTile(
-      title: Text("修改密码"),
-      onTap: (){
-        showAlertDialog(context,'修改密码');
-      },
-      trailing: new Icon(Icons.arrow_forward,color: YcColors.colorIndigo10,),
-    );
-    return listTile;
-  }
-
-  Widget initSafetyWidget() {
-    var listTile = new ListTile(
-      title: Text("安全设置"),
-      onTap: (){
-        showAlertDialog(context,'安全设置');
-      },
-      trailing: new Icon(Icons.arrow_forward,color: YcColors.colorIndigo10,),
-    );
-    return listTile;
-  }
-
-  Widget initCacheWidget() {
-    var listTile = new ListTile(
-      title: Text("清除缓存"),
-      onTap: (){
-        showDialog(
-            context: context,
-            barrierDismissible: false,
-            builder: (BuildContext context) {
-              return BaseDialog(
-                hiddenTitle: true,
-                height: 120.0,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: const Text("请选择是否需要App中所有的清除缓存",
-                      style: TextStyles.textDark16, textAlign: TextAlign.center),
-                ),
-                onPressed: (){
-
-                },
-              );
-            }
-        );
-      },
-      trailing: new Icon(Icons.arrow_forward,color: YcColors.colorIndigo10,),
-    );
-    return listTile;
-  }
-
 
   ///展示弹窗
   void showAlertDialog(BuildContext context , String title) {

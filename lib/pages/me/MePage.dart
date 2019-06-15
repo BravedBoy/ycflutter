@@ -18,6 +18,7 @@ import 'package:ycflutter/pages/detail/ArticleDetailPage.dart';
 import 'package:ycflutter/pages/me/AboutMePage.dart';
 import 'package:ycflutter/pages/me/MeCollectPage.dart';
 import 'package:ycflutter/pages/me/LoginPage.dart';
+import 'package:ycflutter/pages/me/SettingPage.dart';
 import 'package:ycflutter/res/YcColors.dart';
 import 'package:ycflutter/utils/AppNavigator.dart';
 import 'package:ycflutter/utils/UserUtils.dart';
@@ -231,6 +232,7 @@ class MeState extends State<MePage> {
         trailing:  Icon(Icons.arrow_forward, color: YcColors.colorPrimary),
         onTap: () {
           //设置中心
+          AppNavigator.push(context, new SettingPage());
         });
     return layout;
   }
