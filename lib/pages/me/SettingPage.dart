@@ -16,6 +16,8 @@ limitations under the License.
 
 
 import 'package:flutter/material.dart';
+import 'package:ycflutter/dialog/BaseDialog.dart';
+import 'package:ycflutter/res/TextStyles.dart';
 import 'package:ycflutter/res/YcColors.dart';
 import 'package:ycflutter/test/TestPage.dart';
 
@@ -114,7 +116,24 @@ class SettingState extends State<SettingPage> {
     var listTile = new ListTile(
       title: Text("清除缓存"),
       onTap: (){
-        showAlertDialog(context,'清除缓存');
+        showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (BuildContext context) {
+              return BaseDialog(
+                hiddenTitle: true,
+                height: 120.0,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: const Text("请选择是否需要App中所有的清除缓存",
+                      style: TextStyles.textDark16, textAlign: TextAlign.center),
+                ),
+                onPressed: (){
+
+                },
+              );
+            }
+        );
       },
       trailing: new Icon(Icons.arrow_forward,color: YcColors.colorIndigo10,),
     );
@@ -170,8 +189,6 @@ class SettingState extends State<SettingPage> {
       },
     );
   }
-
-
 
 }
 

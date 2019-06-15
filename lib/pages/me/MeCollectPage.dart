@@ -43,6 +43,7 @@ class CollectPage extends StatelessWidget{
       body: new MeCollectPage(),
     );
   }
+
 }
 
 

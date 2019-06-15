@@ -177,8 +177,7 @@ class LoginState extends State<LoginPage> {
     map['username'] = name;
     map['password'] = password;
 
-    HttpUtils.post(
-        AndroidApi.LOGIN, (data) async {
+    HttpUtils.post(AndroidApi.LOGIN, (data) async {
           UserUtils.saveLoginInfo(name).then((r) {
             Navigator.of(context).pop();
           });

@@ -54,4 +54,6 @@ class AndroidApi {
   //搜索热词
   static const   String HOT = "hotkey/json";
 
+
+
 }
