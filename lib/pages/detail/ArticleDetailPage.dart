@@ -15,6 +15,9 @@ limitations under the License.
 */
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+import 'package:ycflutter/dialog/PopupWindow.dart';
+import 'package:ycflutter/res/TextStyles.dart';
+import 'package:ycflutter/res/YcColors.dart';
 
 /*
  * <pre>
@@ -44,8 +47,8 @@ class ArticleDetailPage extends StatefulWidget {
 class ArticleDetailPageState extends State<ArticleDetailPage> {
 
   bool isLoad = true;
-
   final flutterWebViewPlugin = new FlutterWebviewPlugin();
+  GlobalKey addKey = GlobalKey();
 
   @override
   void initState() {
@@ -64,9 +67,17 @@ class ArticleDetailPageState extends State<ArticleDetailPage> {
   @override
   Widget build(BuildContext context) {
     return new WebviewScaffold(
-      url: widget.url,
       appBar: new AppBar(
         title: new Text(widget.title),
+        actions: <Widget>[
+          IconButton(
+            key: addKey,
+            onPressed: (){
+              showAddMenu();
+            },
+            icon: new Icon(Icons.add,),
+          ),
+        ],
         bottom: new PreferredSize(
             preferredSize: const Size.fromHeight(1.0),
             child: isLoad
@@ -76,9 +87,77 @@ class ArticleDetailPageState extends State<ArticleDetailPage> {
                     color: Theme.of(context).primaryColor,
                   )),
       ),
+      url: widget.url,
       withZoom: false,
       withLocalStorage: true,
       withJavascript: true,
     );
   }
+
+
+  void showAddMenu() {
+    final RenderBox button = addKey.currentContext.findRenderObject();
+    final RenderBox overlay = Overlay.of(context).context.findRenderObject();
+    var a =  button.localToGlobal(Offset(button.size.width - 8.0, button.size.height - 12.0), ancestor: overlay);
+    var b =  button.localToGlobal(button.size.bottomLeft(Offset(0, - 12.0)), ancestor: overlay);
+    final RelativeRect position = RelativeRect.fromRect(
+      Rect.fromPoints(a, b),
+      Offset.zero & overlay.size,
+    );
+    showPopupWindow(
+      context: context,
+      fullWidth: false,
+      isShowBg: true,
+      position: position,
+      elevation: 0.0,
+      child: InkWell(
+        splashColor: Colors.transparent,
+        highlightColor: Colors.transparent,
+        onTap: (){
+
+        },
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(right: 12.0),
+              child: Image.asset("lib/image/jt.png", width: 8.0, height: 4.0,),
+            ),
+            Container(
+              width: 120.0,
+              height: 40.0,
+              child: FlatButton.icon(
+                  onPressed: (){
+
+                  },
+                  color: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(topLeft: Radius.circular(8.0), topRight: Radius.circular(8.0)),
+                  ),
+                  icon: new Icon(Icons.share),
+                  label: Text("分享微信", style: TextStyles.textDark12,)
+              ),
+            ),
+            Container(width: 120.0, height: 0.6, color: YcColors.line),
+            Container(
+              width: 120.0,
+              height: 40.0,
+              child: FlatButton.icon(
+                  color: Colors.white,
+                  onPressed: (){
+
+                  },
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(bottomLeft: Radius.circular(8.0), bottomRight: Radius.circular(8.0)),
+                  ),
+                  icon: new Icon(Icons.android),
+                  label: Text("GitHub", style: TextStyles.textDark12)
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
 }

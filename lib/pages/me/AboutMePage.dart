@@ -14,7 +14,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 import 'package:flutter/material.dart';
+import 'package:ycflutter/dialog/PopupWindow.dart';
 import 'package:ycflutter/pages/detail/ArticleDetailPage.dart';
+import 'package:ycflutter/res/TextStyles.dart';
 import 'package:ycflutter/res/YcColors.dart';
 
 /*
@@ -34,6 +36,9 @@ class AboutMePage extends  StatefulWidget{
 }
 
 class AboutMeState extends State<AboutMePage> {
+
+  GlobalKey addKey = GlobalKey();
+
   @override
   Widget build(BuildContext context) {
     Widget icon = initImage();
@@ -42,7 +47,16 @@ class AboutMeState extends State<AboutMePage> {
     Widget zhy = initZhyWidget();
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text('关于'),
+        title: new Text("关于我"),
+        actions: <Widget>[
+          IconButton(
+            key: addKey,
+            onPressed: (){
+              showAddMenu();
+            },
+            icon: new Icon(Icons.add,),
+          ),
+        ],
       ),
       body: new ListView(
         padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
@@ -123,4 +137,71 @@ class AboutMeState extends State<AboutMePage> {
         });
     return layout;
   }
+
+
+  void showAddMenu() {
+    final RenderBox button = addKey.currentContext.findRenderObject();
+    final RenderBox overlay = Overlay.of(context).context.findRenderObject();
+    var a =  button.localToGlobal(Offset(button.size.width - 8.0, button.size.height - 12.0), ancestor: overlay);
+    var b =  button.localToGlobal(button.size.bottomLeft(Offset(0, - 12.0)), ancestor: overlay);
+    final RelativeRect position = RelativeRect.fromRect(
+      Rect.fromPoints(a, b),
+      Offset.zero & overlay.size,
+    );
+    showPopupWindow(
+      context: context,
+      fullWidth: false,
+      isShowBg: true,
+      position: position,
+      elevation: 0.0,
+      child: InkWell(
+        splashColor: Colors.transparent,
+        highlightColor: Colors.transparent,
+        onTap: (){
+
+        },
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(right: 12.0),
+              child: Image.asset("lib/image/jt.png", width: 8.0, height: 4.0,),
+            ),
+            Container(
+              width: 120.0,
+              height: 40.0,
+              child: FlatButton.icon(
+                  onPressed: (){
+
+                  },
+                  color: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(topLeft: Radius.circular(8.0), topRight: Radius.circular(8.0)),
+                  ),
+                  icon: new Icon(Icons.share),
+                  label: Text("分享微信", style: TextStyles.textDark12,)
+              ),
+            ),
+            Container(width: 120.0, height: 0.6, color: YcColors.line),
+            Container(
+              width: 120.0,
+              height: 40.0,
+              child: FlatButton.icon(
+                  color: Colors.white,
+                  onPressed: (){
+
+                  },
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(bottomLeft: Radius.circular(8.0), bottomRight: Radius.circular(8.0)),
+                  ),
+                  icon: new Icon(Icons.android),
+                  label: Text("GitHub", style: TextStyles.textDark12)
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
 }
