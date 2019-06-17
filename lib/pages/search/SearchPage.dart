@@ -100,27 +100,25 @@ class SearchState extends State<SearchPage> {
   }
 
   TextField initSearchText() {
-    TextField searchText = new TextField(
+    TextField searchText = TextField(
       autofocus: true,
       cursorColor: YcColors.colorRed,
-      //最大长度，设置此项会让TextField右下角有一个输入数量的统计字符串
-      maxLength: 10,
+      decoration: InputDecoration(
+        hintText: "请输入搜索关键词",
+        //prefixIcon: Icon(Icons.input,color: AuthColors.colorWhite,)
+      ),
       //输入文本的样式
       style: TextStyle(fontSize: 16.0, color: YcColors.colorWhite),
-      decoration: new InputDecoration(
-        border: InputBorder.none,
-        fillColor: YcColors.colorWhite,
-        hintText: '逗比，请输入搜索关键词',
-      ),
       controller: searchController,
       //内容改变的回调
-      /*onChanged: (text) {
-        LogUtils.showPrint('change $text');
-      },*/
+      onChanged: (text) {
+        var text2 = searchController.text;
+        LogUtils.showPrint('change $text ----' + text2);
+      },
       //内容提交(按回车)的回调
-      /*onSubmitted: (text) {
+      onSubmitted: (text) {
         LogUtils.showPrint('submit $text');
-      },*/
+      },
     );
     return searchText;
   }

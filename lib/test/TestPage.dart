@@ -6,6 +6,7 @@ import 'package:ycflutter/test/ListLoadMore.dart';
 import 'package:ycflutter/test/ListMore.dart';
 import 'package:ycflutter/test/ListRefreshMore.dart';
 import 'package:ycflutter/test/TestList.dart';
+import 'package:ycflutter/test/WidgetPage.dart';
 
 class TestPage extends StatefulWidget{
   @override
@@ -61,6 +62,16 @@ class TestPageState extends State<TestPage>{
             onTap: (){
               Navigator.of(context).push(new MaterialPageRoute(builder: (context){
                 return new ListMore();
+              }));
+            },
+          ),
+          new Divider(),
+          new ListTile(
+            title: new Text("基础控件学习和运用"),
+            trailing:  Icon(Icons.arrow_forward, color: YcColors.colorPrimary),
+            onTap: (){
+              Navigator.of(context).push(new MaterialPageRoute(builder: (context){
+                return new WidgetPage();
               }));
             },
           ),
