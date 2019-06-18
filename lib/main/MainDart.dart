@@ -79,30 +79,27 @@ class MainDartState extends State<MainDart> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    navigationViews = <BottomNavigationBarItem>[
-      new BottomNavigationBarItem(
-        icon: const Icon(Icons.home),
-        title: new Text(mainTitles[0]),
-        backgroundColor: Colors.black,
-      ),
-      new BottomNavigationBarItem(
-        icon: const Icon(Icons.assignment),
-        title: new Text(mainTitles[1]),
-        backgroundColor: Colors.black,
-      ),
-      new BottomNavigationBarItem(
-        icon: const Icon(Icons.devices_other),
-        title: new Text(mainTitles[2]),
-        backgroundColor: Colors.black,
-      ),
-      new BottomNavigationBarItem(
-        icon: const Icon(Icons.person),
-        title: new Text(mainTitles[3]),
-        backgroundColor: Colors.black,
-      ),
-    ];
+    initNavigationBarView();
+    LogUtils.showPrint('initState');
   }
 
+  @override
+  void didChangeDependencies() {
+    LogUtils.showPrint('didChangeDependencies');
+    super.didChangeDependencies();
+  }
+
+  @override
+  void deactivate() {
+    LogUtils.showPrint('deactivate');
+    super.deactivate();
+  }
+
+  @override
+  void dispose() {
+    LogUtils.showPrint('dispose');
+    super.dispose();
+  }
 
   ///初始化数据
   void initData() {
@@ -260,4 +257,38 @@ class MainDartState extends State<MainDart> with TickerProviderStateMixin {
     );
   }
 
+  void initNavigationBarView() {
+    navigationViews = <BottomNavigationBarItem>[
+      new BottomNavigationBarItem(
+        icon: const Icon(Icons.home),
+        title: new Text(mainTitles[0]),
+        backgroundColor: Colors.black,
+      ),
+      new BottomNavigationBarItem(
+        icon: const Icon(Icons.assignment),
+        title: new Text(mainTitles[1]),
+        backgroundColor: Colors.black,
+      ),
+      new BottomNavigationBarItem(
+        icon: const Icon(Icons.devices_other),
+        title: new Text(mainTitles[2]),
+        backgroundColor: Colors.black,
+      ),
+      new BottomNavigationBarItem(
+        icon: const Icon(Icons.person),
+        title: new Text(mainTitles[3]),
+        backgroundColor: Colors.black,
+      ),
+    ];
+  }
+
+}
+
+class Text1{
+  void init(){
+    MainDart mainDart = new MainDart();
+    //java可以通过对象，调用public方法
+    //dart则不可以
+    //mainDart.initNavigationBarView();
+  }
 }

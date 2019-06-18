@@ -2,10 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:ycflutter/res/YcColors.dart';
+import 'package:ycflutter/test/LifecycleAppPage.dart';
 import 'package:ycflutter/test/ListLoadMore.dart';
 import 'package:ycflutter/test/ListMore.dart';
 import 'package:ycflutter/test/ListRefreshMore.dart';
 import 'package:ycflutter/test/TestList.dart';
+import 'package:ycflutter/test/TestState.dart';
 import 'package:ycflutter/test/WidgetPage.dart';
 
 class TestPage extends StatefulWidget{
@@ -72,6 +74,26 @@ class TestPageState extends State<TestPage>{
             onTap: (){
               Navigator.of(context).push(new MaterialPageRoute(builder: (context){
                 return new WidgetPage();
+              }));
+            },
+          ),
+          new Divider(),
+          new ListTile(
+            title: new Text("研究测试State状态"),
+            trailing:  Icon(Icons.arrow_forward, color: YcColors.colorPrimary),
+            onTap: (){
+              Navigator.of(context).push(new MaterialPageRoute(builder: (context){
+                return new TestState();
+              }));
+            },
+          ),
+          new Divider(),
+          new ListTile(
+            title: new Text("flutter的生命周期"),
+            trailing:  Icon(Icons.arrow_forward, color: YcColors.colorPrimary),
+            onTap: (){
+              Navigator.of(context).push(new MaterialPageRoute(builder: (context){
+                return new LifecycleAppPage();
               }));
             },
           ),
