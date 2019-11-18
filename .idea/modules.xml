@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ycflutter.iml" filepath="$PROJECT_DIR$/ycflutter.iml" />
-      <module fileurl="file://$PROJECT_DIR$/android/ycflutter_android.iml" filepath="$PROJECT_DIR$/android/ycflutter_android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/ycflutter.iml" filepath="$PROJECT_DIR$/.idea/ycflutter.iml" />
     </modules>
   </component>
 </project>

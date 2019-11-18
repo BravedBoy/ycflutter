@@ -161,7 +161,7 @@ class MainDartState extends State<MainDart> with TickerProviderStateMixin {
         padding: EdgeInsets.zero,
         children: <Widget>[
           new UserAccountsDrawerHeader(
-            accountName: Text("小杨逗比"),
+            accountName: Text("杨充"),
             accountEmail: Text("yangchong211@163.com"),
             onDetailsPressed: (){
               navigatorKey.currentState.push(new MaterialPageRoute(builder: (context) {
